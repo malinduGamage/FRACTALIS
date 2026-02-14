@@ -319,3 +319,9 @@
 127.0.0.1 - - [14/Feb/2026 08:54:33] "GET /index.html HTTP/1.1" 304 -
 127.0.0.1 - - [14/Feb/2026 08:54:33] "GET /style.css HTTP/1.1" 304 -
 127.0.0.1 - - [14/Feb/2026 08:54:33] "GET /img/julia_rust_1771034283965.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [14/Feb/2026 09:00:28] code 404, message File not found
+127.0.0.1 - - [14/Feb/2026 09:00:28] "GET /index.html HTTP/1.1" 404 -
+127.0.0.1 - - [14/Feb/2026 09:00:29] code 404, message File not found
+127.0.0.1 - - [14/Feb/2026 09:00:29] "GET /index.html HTTP/1.1" 404 -
+127.0.0.1 - - [14/Feb/2026 09:00:36] code 404, message File not found
+127.0.0.1 - - [14/Feb/2026 09:00:36] "GET /index.html HTTP/1.1" 404 -
