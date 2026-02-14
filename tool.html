@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FRACTALIS Studio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader-overlay">
+      <div class="spinner-ring"></div>
+      <div class="loader-content">
+        <h2>Initializing Studio</h2>
+        <p>Loading mathematics...</p>
+      </div>
+    </div>
+
+    <div class="app" id="app">
+      <!-- Sidebar Controls -->
+      <aside class="sidebar">
+        <header class="sidebar-header">
+          <a href="index.html" class="brand"> Fractalis </a>
+          <button
+            class="theme-btn"
+            id="theme-toggle"
+            title="Toggle Theme"
+            style="
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: var(--color-text-muted);
+            "
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </header>
+
+        <div class="scroll-area">
+          <!-- Actions -->
+          <div class="control-group">
+            <div class="actions-row toolbar">
+              <button
+                class="btn btn-sm btn-tool"
+                id="btn-reset"
+                title="Reset to Default"
+              >
+                <span class="tool-icon">↺</span> Reset
+              </button>
+              <button
+                class="btn btn-sm btn-tool"
+                id="btn-chaos"
+                title="Randomize Parameters"
+              >
+                <span class="tool-icon">⚄</span> Chaos
+              </button>
+              <button
+                class="btn btn-sm btn-tool"
+                id="btn-rnd-colors"
+                title="Randomize Palette"
+              >
+                <span class="tool-icon">🎨</span> Colors
+              </button>
+            </div>
+          </div>
+
+          <!-- Export -->
+          <details class="control-group">
+            <summary>Export</summary>
+
+            <div class="field">
+              <label>Preset</label>
+              <div class="actions-row" id="presets">
+                <button class="btn btn-sm" data-w="3840" data-h="2160">
+                  4K
+                </button>
+                <button class="btn btn-sm" data-w="1080" data-h="1920">
+                  Phone
+                </button>
+                <button class="btn btn-sm" data-w="1000" data-h="1000">
+                  Square
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Dimensions</label>
+              <div class="row-inputs">
+                <input type="number" id="export-w" value="3840" />
+                <input type="number" id="export-h" value="2160" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Format</label>
+              <select id="export-format" class="select">
+                <option value="image/png">PNG (Lossless)</option>
+                <option value="image/jpeg">JPEG (High Quality)</option>
+                <option value="image/webp">WebP (Efficient)</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" id="btn-export" style="width: 100%">
+              Download
+            </button>
+            <span id="export-status" class="status-msg"></span>
+          </details>
+
+          <!-- Parameters -->
+          <details class="control-group" open>
+            <summary>Mathematics</summary>
+            <div class="field">
+              <label>Equation</label>
+              <select id="fractal-type" class="select">
+                <option value="0">Standard Julia</option>
+                <option value="1">Burning Ship</option>
+                <option value="2">Tricorn</option>
+                <option value="3">Celtic</option>
+                <option value="4">Cosine</option>
+              </select>
+            </div>
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Re(c)</label
+                ><span class="val" id="val-c-re">-0.700</span>
+              </div>
+              <input
+                type="range"
+                id="c-re"
+                min="-2.0"
+                max="1.0"
+                step="0.001"
+                value="-0.7"
+              />
+            </div>
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Im(c)</label><span class="val" id="val-c-im">0.270</span>
+              </div>
+              <input
+                type="range"
+                id="c-im"
+                min="-1.0"
+                max="1.0"
+                step="0.001"
+                value="0.27015"
+              />
+            </div>
+          </details>
+
+          <!-- View -->
+          <details class="control-group" open>
+            <summary>Composition</summary>
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Zoom</label><span class="val" id="val-zoom">1.00</span>
+              </div>
+              <input
+                type="range"
+                id="zoom"
+                min="0.1"
+                max="50.0"
+                step="0.01"
+                value="1.0"
+              />
+            </div>
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Rotation</label
+                ><span class="val" id="val-rotation">0</span>
+              </div>
+              <input
+                type="range"
+                id="rotation"
+                min="0"
+                max="360"
+                step="1"
+                value="0"
+              />
+            </div>
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Pan X</label><span class="val" id="val-x-off">0.00</span>
+              </div>
+              <input
+                type="range"
+                id="x-off"
+                min="-2.0"
+                max="2.0"
+                step="0.001"
+                value="0.0"
+              />
+            </div>
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Pan Y</label><span class="val" id="val-y-off">0.00</span>
+              </div>
+              <input
+                type="range"
+                id="y-off"
+                min="-2.0"
+                max="2.0"
+                step="0.001"
+                value="0.0"
+              />
+            </div>
+          </details>
+
+          <!-- Style -->
+          <details class="control-group" open>
+            <summary>Aesthetics</summary>
+
+            <div class="field">
+              <label>Palette Loop</label>
+              <div class="gradient-editor" id="gradient-editor"></div>
+            </div>
+
+            <div class="field">
+              <label>Background</label>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <input
+                  type="color"
+                  id="bg-color"
+                  value="#000000"
+                  style="
+                    background: none;
+                    border: 1px solid #333;
+                    height: 30px;
+                    width: 30px;
+                    padding: 0;
+                  "
+                />
+                <div style="display: flex; align-items: center; gap: 5px">
+                  <input type="checkbox" id="transparent" />
+                  <label for="transparent" style="margin: 0; cursor: pointer"
+                    >Transparent</label
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-field">
+              <div class="label-row">
+                <label>Vignette / Fade</label
+                ><span class="val" id="val-fade">0</span>
+              </div>
+              <input
+                type="range"
+                id="fade"
+                min="0"
+                max="255"
+                step="1"
+                value="0"
+              />
+            </div>
+          </details>
+        </div>
+
+        <footer class="sidebar-footer">
+          <span id="render-stats">--ms</span>
+          <span>v2.0</span>
+        </footer>
+      </aside>
+
+      <!-- Main Canvas Area -->
+      <main class="viewport">
+        <div class="canvas-container" id="canvas-container">
+          <canvas id="fractal-canvas"></canvas>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
