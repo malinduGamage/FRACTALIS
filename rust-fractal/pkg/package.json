@@ -1,0 +1,15 @@
+{
+  "name": "julia-fractal",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "julia_fractal_bg.wasm",
+    "julia_fractal.js",
+    "julia_fractal.d.ts"
+  ],
+  "main": "julia_fractal.js",
+  "types": "julia_fractal.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
