@@ -2,7 +2,7 @@
 
 **FRACTALIS** is a high-performance, interactive Julia Set fractal explorer built with **Rust (WebAssembly)** and **JavaScript**. It allows users to create, explore, and export infinite-resolution mathematical art directly in the browser.
 
-[**Live Demo**](https://malindugamage.github.io/julia-set/)
+[**Live Demo**](https://malindugamage.github.io/FRACTALIS/)
 
 ## Features
 
